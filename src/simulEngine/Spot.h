@@ -33,7 +33,7 @@ private:
 	/**
 	 * List of Creatures (pointers) on this spot
 	 */
-	std::vector<Creature*> m_creatures;
+	std::vector<Creature const*> m_creatures;
 
 public:
 	/**
@@ -49,20 +49,20 @@ public:
 	 * Accessor of feeding power
 	 * @return m_food
 	 */
-	int food();
+	const int food() const;
 
 	/**
 	 * Give the number of creatures on the spot
 	 * @return The length of m_creatures
 	 */
-	int nbCreatures();
+	const int nbCreatures() const;
 
 	/**
 	 * Give the pointer to a specific creature of the spot
 	 * @param id Index of the desired creature in m_creatures
 	 * @return The value of m_creatures[id]
 	 */
-	Creature* creatureFromIndex(const int id);
+	Creature const* creatureFromIndex(const int id) const;
 
 
 	/**

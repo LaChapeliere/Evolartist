@@ -28,19 +28,19 @@ Creature::Creature(const int id) {
 	return Creature(id, x, y);
 }
 
-int Creature::getId() {
+const int Creature::getId() const {
 	return m_id;
 }
 
-int Creature::getVisionCap() {
+const int Creature::getVisionCap() const {
 	return m_visionCap;
 }
 
-std::pair<int, int> Creature::getCoord() {
+const std::pair<int, int> Creature::getCoord() const {
 	return std::pair<int, int> (m_x, m_y);
 }
 
-bool Creature::isAlive() {
+const bool Creature::isAlive() const {
 	return (m_health > 0);
 }
 
@@ -58,7 +58,7 @@ void Creature::feed(const int food) {
 	}
 }
 
-std::pair<int, int> Creature::move() {
+const std::pair<int, int> Creature::move() {
 	//Dummy implementation, no move
 	return getCoord();
 }
