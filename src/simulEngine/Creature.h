@@ -71,42 +71,43 @@ public:
 	 * Identifier accessor
 	 * @return m_id
 	 */
-	getId();
+	int getId();
 
 	/**
 	 * Vision capacity accessor
 	 * @return m_visionCap
 	 */
-	getVisionCap();
+	int getVisionCap();
 
 	/**
 	 * Coordinates accessor
 	 * @return The pair of horizontal and vertical coordinates
 	 */
-	getCoord();
+	std::pair<int, int> getCoord();
 
 	/**
 	 * Check whether the creature should still be alive
 	 * @return False if the creature's health is negative
 	 */
-	isAlive();
+	bool isAlive();
 
 	
 	/**
 	 * Decrease health according to hunger
 	 */
-	hungerImpactHealth();
+	void hungerImpactHealth();
 
 	/**
 	 * Feed creature
 	 * @param food The feeding power of the food
 	 */
-	feed(const int food);
+	void feed(const int food);
 
 	/**
 	 * Move the creature towards the visible spot with highest feeding power
+	 * @return The pair of new horizontal and vertical coordinates
 	 */
-	move();
+	std::pair<int, int> move();
     	
 };
 
