@@ -1,4 +1,4 @@
-/*
+/**
  * Author: LaChapeliere
  * Copyright: GNU General Public License v3.0
  * Created on: 27-08-2017
@@ -14,8 +14,10 @@ using namespace std;
 
 int main(){
 
-    cout << "Hello World!" << endl;
+	srand (time(NULL));
 
-    return 0;
+    	cout << "Hello World!" << endl;
+
+    	return 0;
 
 }
