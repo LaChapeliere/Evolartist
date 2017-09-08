@@ -10,6 +10,7 @@
 #define SPOT_H
 
 #include <vector>
+#include "Creature.h"
 
 //Class for the spots in the grid
 class Spot

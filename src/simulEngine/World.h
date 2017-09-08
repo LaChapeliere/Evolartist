@@ -9,6 +9,8 @@
 #ifndef WORLD_H
 #define WORLD_H
 
+#include "Spot.h"
+
 
 //Class for the world grid
 class World
