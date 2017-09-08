@@ -10,6 +10,7 @@
 #define CREATURE_H
 
 #include <time.h>
+#include <pair>
 
 //Class for the creatures
 class Creature

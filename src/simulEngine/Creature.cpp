@@ -25,3 +25,38 @@ Creature::Creature(const int id) {
 
 	return Creature(id, x, y);
 }
+
+int Creature::getId() {
+	return m_id;
+}
+
+int Creature::getVisionCap() {
+	return m_visionCap;
+}
+
+std::pair<int, int> Creature::getCoord() {
+	return std::pair<int, int> (m_x, m_y);
+}
+
+bool Creature::isAlive() {
+	return (m_health > 0);
+}
+
+void Creature::hungerImpactHealth() {
+	//Hunger is always positive
+	if (m_hunger >= 0) {
+		m_health -= m_hunger;
+	}
+}
+
+void Creature::feed(const int food) {
+	//Feeding power must be positive
+	if (food >= 0) {
+		m_hunger -= food;
+	}
+}
+
+std::pair<int, int> Creature::move() {
+	//Dummy implementation, no move
+	return getCoord();
+}
