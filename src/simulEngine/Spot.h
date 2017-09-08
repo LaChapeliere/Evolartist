@@ -50,26 +50,44 @@ public:
 	 * Accessor of feeding power
 	 * @return m_food
 	 */
-	const int food() const;
+	const int getFood() const;
 
 	/**
 	 * Give the number of creatures on the spot
 	 * @return The length of m_creatures
 	 */
-	const int nbCreatures() const;
+	const int getNbCreatures() const;
 
 	/**
 	 * Give the pointer to a specific creature of the spot
 	 * @param id Index of the desired creature in m_creatures
 	 * @return The value of m_creatures[id]
 	 */
-	Creature const* creatureFromIndex(const int id) const;
+	Creature const* getCreatureFromIndex(const int id) const;
 
 
 	/**
 	 * Simulate vegetation growth
 	 */
 	void growFood();
+
+	/**
+	 * Simulate feeding from vegetation
+	 */
+	void feedingCreature();
+
+	/**
+	 * Add a creature to the spot
+	 * @param creaturePointer The pointer to the added Creature
+	 */
+	void addCreature(Creature *const creaturePointer);
+
+	/**
+	 * Remove a specific creature from the spot
+	 * @param id Index of the creature to remove in m_creatures
+	 */
+	void removeCreature(const int id);
+	
 };
 
 #endif
