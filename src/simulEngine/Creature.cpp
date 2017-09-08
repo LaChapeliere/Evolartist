@@ -16,6 +16,8 @@ Creature::Creature(const int id, const int x, const int y) {
 	m_y = y;
 	m_health = 100;
 	m_hunger = 0;
+
+	m_maxPercepCap = m_visionCap;
 }
 
 Creature::Creature(const int id) {

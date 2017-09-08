@@ -27,6 +27,11 @@ private:
 	const int m_visionCap;
 
 	/**
+	 * Maximum range of perception
+	 */
+	const int m_maxPercepCap;
+
+	/**
 	 * Movement capacity of the creature
 	 */
 	const int m_moveCap;
