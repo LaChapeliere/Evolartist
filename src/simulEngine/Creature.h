@@ -86,6 +86,12 @@ public:
 	const int getVisionCap() const;
 
 	/**
+	 * Maximum perception capacity accessor
+	 * @return m_maxPercepCap
+	 */
+	const int getmaxPercepCap() const;
+
+	/**
 	 * Coordinates accessor
 	 * @return The pair of horizontal and vertical coordinates
 	 */

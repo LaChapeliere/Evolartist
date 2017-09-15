@@ -36,6 +36,10 @@ const int Creature::getVisionCap() const {
 	return m_visionCap;
 }
 
+const int Creature::getmaxPercepCap() const {
+	return m_maxPercepCap;
+}
+
 const std::pair<int, int> Creature::getCoord() const {
 	return std::pair<int, int> (m_x, m_y);
 }
