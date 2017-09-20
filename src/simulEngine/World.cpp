@@ -127,3 +127,33 @@ void World::interactCreaturesEnv() {
 		m_grid[s].feedCreatures()
 	}
 }
+
+void World::resolveTurn() {
+	//Update health and hunger for each Creature, then check if it's alive, remove it if not
+	for (int c = 0; c < m_creatures.size(); c++) {
+		m_creatures[c].hungerImpactHealth();
+		m_creatures[c].growHungry();
+		if (!m_creatures[c].isAlive()) {
+			removeCreature(m_creatures[c].getId();
+		}
+	}
+
+	//Give birth to new Creatures
+	for (int c = 0; c < m_toBeBornCreatures.size(); c++) {
+		m_creatures.push_back(m_toBeBornCreatures[c]);
+		const std::pair<int, int> coord = m_toBeBornCreatures[c].getCoord();
+
+		//Add creature to grid
+		m_grid[coord.first + coord.second * m_size].addCreature(&m_creatures[m_creatures.size() -1]);
+	}
+	m_toBeBornCreatures.clear();
+
+	//Update vegetation on Spot objects
+	for (s = 0; s < m_grid.size(); s++) {
+		m_grid[s].growFood();
+	}
+
+	//Update age and incubation time
+	m_age++;
+	m_incubationTime++;
+}

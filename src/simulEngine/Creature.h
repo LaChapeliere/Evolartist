@@ -111,6 +111,11 @@ public:
 
 	
 	/**
+	 * Increase hunger as time goes
+	 */
+	void growHungry();
+
+	/**
 	 * Decrease health according to hunger
 	 */
 	void hungerImpactHealth();

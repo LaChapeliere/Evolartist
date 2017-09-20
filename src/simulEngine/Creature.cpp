@@ -48,6 +48,10 @@ const bool Creature::isAlive() const {
 	return (m_health > 0);
 }
 
+void Creature::growHungry() {
+	m_hunger += 5;
+}
+
 void Creature::hungerImpactHealth() {
 	//Hunger is always positive
 	if (m_hunger >= 0) {
