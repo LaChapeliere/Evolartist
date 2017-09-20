@@ -47,6 +47,11 @@ private:
 	 */
 	std::vector<Creature> m_creatures;
 
+	/**
+	 * List of Creature objects that will be added to the world during the simulation resolution step
+	 */
+	std::vector<Creature> m_toBeBornCreatures;
+
 public:
 	/**
  	 * World constructor

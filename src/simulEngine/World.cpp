@@ -112,5 +112,12 @@ void World::moveCreatures() {
 	}
 }
 
-
+void World::interactBtwCreatures() {
+	// Get Creatures to interact
+	// For now, dummy reproduction: each Spot with more than one Creature generates a new random Creature in one of the neighboring spots. The Creature is not added immediately but will be born in the simulation resolving step
+	//Create creature
+	m_lastCreatureId++;
+	Creature newCreature = Creature(m_lastCreatureId, x, y));
+	m_toBeBornCreatures.push_back(newCreature);
+}
 
