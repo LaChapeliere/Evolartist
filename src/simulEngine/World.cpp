@@ -42,8 +42,8 @@ Spot const* World::getPointerToSpot(const int x, const int y) const {
 
 void World::addCreature() {
 	//Generate random coordinates in world space
-	const int x = rand() % 1000;
-	const int y = rand() % 1000;
+	const int x = rand() % m_size;
+	const int y = rand() % m_size;
 
 	addCreature(x, y);
 }
@@ -51,11 +51,10 @@ void World::addCreature() {
 void World::addCreature(const int x, const int y) {
 	//Create creature
 	m_lastCreatureId++;
-	Creature newCreature = Creature(m_lastCreatureId, x, y);
-	m_creatures.push_back(newCreature);
+	m_creatures.push_back(Creature(m_lastCreatureId, x, y));
 
 	//Add creature to grid
-	m_grid[x + y * m_size].addCreature(&newCreature);
+	m_grid[x + y * m_size].addCreature(&m_creatures[m_creatures.size() - 1]);
 }
 
 void World::removeCreature(const int creatureId) {
