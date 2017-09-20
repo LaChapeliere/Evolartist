@@ -11,7 +11,9 @@
 
 #include <time.h>
 #include <utility>
-#include "World.h"
+
+//Forward declaration of World class
+class World;
 
 //Class for the creatures
 class Creature
