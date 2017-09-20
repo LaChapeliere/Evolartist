@@ -11,6 +11,7 @@
 
 #include <time.h>
 #include <utility>
+#include "World.h"
 
 //Class for the creatures
 class Creature
@@ -55,6 +56,11 @@ private:
 	 * Hunger of the creature
 	 */
 	int m_hunger;
+
+	/**
+	 * Flattened matrix of the perceived local environment, centered on current position
+	 */
+	int m_env;
 
 public:
 	/**
@@ -114,6 +120,12 @@ public:
 	 * @param food The feeding power of the food
 	 */
 	void feed(const int food);
+
+	/**
+	 * Build local perception map
+	 * @param A pointer to the World object
+	 */
+	void perceiveLocalEnv(World const* world);
 
 	/**
 	 * Move the creature towards the visible spot with highest feeding power

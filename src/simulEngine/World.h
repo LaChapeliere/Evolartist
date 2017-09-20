@@ -51,10 +51,16 @@ public:
 	/**
  	 * World constructor
 	 * @param size The size of the square grid
+	 * @param nbCreatures The number of Creature objects to generate in the grid initially
  	 * @return A new World object with the specified size of grid
  	 */
-	World(const int size);
+	World(const int size, const int nbCreatures);
 
+	/**
+	 * Accessor of size of the world
+	 * @return m_size
+	 */
+	const int getSize() const;
 	
 	/**
 	 * Accessor of age of the world
@@ -67,6 +73,14 @@ public:
 	 * @return m_incubationTime
 	 */
 	const int getIncubTime() const;
+
+	/**
+	 * Accessor by pointer to Spots in the grid
+	 * @param x The horizontal coordinate of the desired Spot in the grid
+	 * @param y The vertical coordinate of the desired Spot in the grid
+	 * @return The pointer to the corresponding Spot object
+	 */
+	Spot const* getPointerToSpot(const int x, const int y) const;
 
 
 	/**

@@ -62,6 +62,28 @@ void Creature::feed(const int food) {
 	}
 }
 
+void Creature::perceiveLocalEnv(World const* world) {
+	// Initialise the local map to a square of side m_maxPercepCap*2+1
+	m_env.clear();
+	const int localEnvSize = m_maxPercepCap*2+1
+	m_env.assign((localEnvSize)**2,0);
+
+	//For each spot in local environment, get the Spot object to evaluate
+	const int worldSize = world->getSize()
+	for (int y = (m_y - m_maxPerceptionCap) % worldSize; y < (m_y + m_maxPerceptionCap) % worldSize; y++) {
+		for (int x = (m_x - m_maxPerceptionCap) % worldSize; x < (m_x + m_maxPerceptionCap) % worldSize; x++) {
+			Spot const* spot = world->getPointerToSpot(x, y);
+			// For now, compute score depending on the food available on the availability of other creatures on the spot
+			int score = spot->getFood() / 10;
+			if (spot->getNbCreatures() > 0) {
+				score += 5;
+			}
+
+			m_env[y * localEnvSize + x] = score;
+		}
+	}
+}
+
 const std::pair<int, int> Creature::move() {
 	//Dummy implementation, no move
 	return getCoord();
