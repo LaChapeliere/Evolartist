@@ -74,7 +74,7 @@ public:
 	/**
 	 * Simulate feeding from vegetation
 	 */
-	void feedingCreature();
+	void feedCreatures();
 
 	/**
 	 * Add a creature to the spot

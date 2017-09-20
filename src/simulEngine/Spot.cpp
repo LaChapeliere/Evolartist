@@ -30,7 +30,7 @@ void Spot::growFood() {
 	m_food++;
 }
 
-void Spot::feedingCreature() {
+void Spot::feedCreatures() {
 	const int nbCreatures = m_creatures.size();
 	if (nbCreatures > 0) {
 		int share = m_food / nbCreatures;
