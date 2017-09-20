@@ -9,6 +9,7 @@
 #ifndef WORLD_H
 #define WORLD_H
 
+#include <stdlib.h>
 #include "Spot.h"
 #include "Creature.h"
 
@@ -35,7 +36,7 @@ private:
 	/**
 	 * Flattened matrix of Spot objects, represent the grid
 	 */
-	const std::vector<Spot> m_grid;
+	std::vector<Spot> m_grid;
 
 	/**
 	 * Identifier of most recent Creature object

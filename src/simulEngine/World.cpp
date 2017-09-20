@@ -7,13 +7,11 @@
 
 #include "World.h"
 
-World::World(const int size(), const int nbCreatures)) {
-	m_size = size;
+World::World(const int size, const int nbCreatures): m_size(size) {
 	m_age = 0;
 	m_incubationTime = 0;
 	
 	//Create grid of Spots
-	m_grid = std::vector<Spot>();
 	for (int y = 0; y < m_size; y++) {
 		for (int x = 0; x < m_size; x++) {
 			m_grid.push_back(Spot(x, y));
@@ -53,7 +51,7 @@ void World::addCreature() {
 void World::addCreature(const int x, const int y) {
 	//Create creature
 	m_lastCreatureId++;
-	Creature newCreature = Creature(m_lastCreatureId, x, y));
+	Creature newCreature = Creature(m_lastCreatureId, x, y);
 	m_creatures.push_back(newCreature);
 
 	//Add creature to grid
@@ -62,7 +60,7 @@ void World::addCreature(const int x, const int y) {
 
 void World::removeCreature(const int creatureId) {
 	//Find creature in grid
-	std::pair<int> coord;
+	std::pair<int, int> coord;
 	int indexInMCreatures;
 	for (int i = 0; i < m_creatures.size(); i++) {
 		if (creatureId == m_creatures[i].getId()) {
@@ -78,9 +76,9 @@ void World::removeCreature(const int creatureId) {
 		const int y = coord.second;
 
 		//Remove from grid
-		for (int i = 0; i < m_creatures[x + y * m_size].m_creatures.size(); i++) {
-			if (m_creatures[x + y * m_size].m_creatures[i].getId() == creatureId) {
-				m_creatures[x + y * m_size].removeCreature(i);
+		for (int i = 0; i < m_grid[x + y * m_size].getNbCreatures(); i++) {
+			if (m_grid[x + y * m_size].getCreatureFromIndex(i)->getId() == creatureId) {
+				m_grid[x + y * m_size].removeCreature(i);
 				break;
 			}
 		}
@@ -90,9 +88,9 @@ void World::removeCreature(const int creatureId) {
 	}
 }
 
-void World::evalEnvCreature() {
+void World::evalEnvCreatures() {
 	//For each Creature
-	for (int c = 0; i < m_creatures.size(); i++) {
+	for (int c = 0; c < m_creatures.size(); c++) {
 		m_creatures[c].perceiveLocalEnv(this);
 	}
 }
@@ -108,23 +106,31 @@ void World::moveCreatures() {
 		//Remove Creature from old Spot
 		m_grid[oldCoord.second * m_size + oldCoord.first].removeCreature(m_creatures[c].getId());
 		//Add Creature to new Spot
-		m_grid[newCoord.second * m_size + newCoord.first.addCreature(&m_creatures[c]);
+		m_grid[newCoord.second * m_size + newCoord.first].addCreature(&m_creatures[c]);
 	}
 }
 
 void World::interactBtwCreatures() {
 	// Get Creatures to interact
 	// For now, dummy reproduction: each Spot with more than one Creature generates a new random Creature in one of the neighboring spots. The Creature is not added immediately but will be born in the simulation resolving step
-	//Create creature
-	m_lastCreatureId++;
-	Creature newCreature = Creature(m_lastCreatureId, x, y));
-	m_toBeBornCreatures.push_back(newCreature);
+	for (int x = 0; x < m_size; x++) {
+		for (int y = 0; y < m_size; y++) {
+			if (m_grid[y * m_size + x].getNbCreatures() > 0) {
+				//Create creature
+				int newX = (x + (rand() % 2 - 1)) % m_size;
+				int newY = (y + (rand() % 2 - 1)) % m_size;
+				m_lastCreatureId++;
+				Creature newCreature = Creature(m_lastCreatureId, newX, newY);
+				m_toBeBornCreatures.push_back(newCreature);
+			}
+		}
+	}
 }
 
 void World::interactCreaturesEnv() {
 	//For each Spot
 	for (int s = 0; s < m_grid.size(); s++) {
-		m_grid[s].feedCreatures()
+		m_grid[s].feedCreatures();
 	}
 }
 
@@ -134,7 +140,7 @@ void World::resolveTurn() {
 		m_creatures[c].hungerImpactHealth();
 		m_creatures[c].growHungry();
 		if (!m_creatures[c].isAlive()) {
-			removeCreature(m_creatures[c].getId();
+			removeCreature(m_creatures[c].getId());
 		}
 	}
 
@@ -149,7 +155,7 @@ void World::resolveTurn() {
 	m_toBeBornCreatures.clear();
 
 	//Update vegetation on Spot objects
-	for (s = 0; s < m_grid.size(); s++) {
+	for (int s = 0; s < m_grid.size(); s++) {
 		m_grid[s].growFood();
 	}
 

@@ -9,7 +9,9 @@
 #ifndef CREATURE_H
 #define CREATURE_H
 
-#include <time.h>
+#include <stdlib.h>
+#include <vector>
+#include <math.h>
 #include <utility>
 
 //Forward declaration of World class
@@ -32,7 +34,7 @@ private:
 	/**
 	 * Maximum range of perception
 	 */
-	const int m_maxPercepCap;
+	int m_maxPercepCap;
 
 	/**
 	 * Movement capacity of the creature
@@ -62,7 +64,7 @@ private:
 	/**
 	 * Flattened matrix of the perceived local environment, centered on current position
 	 */
-	int m_env;
+	std::vector<int> m_env;
 
 public:
 	/**
@@ -80,6 +82,15 @@ public:
  	 * @return A new Creature object
  	 */
 	Creature(const int id);
+
+	/**
+	 * Creature copy constructor
+	 * @param creature The Creature object to copy
+	 * @return A new identical Creature object
+	 */
+	Creature(const Creature& creature);
+
+	Creature operator=(const Creature& creature);
 
 	/**
 	 * Identifier accessor

@@ -10,6 +10,7 @@
 #define SPOT_H
 
 #include <vector>
+#include <iostream>
 #include "Creature.h"
 
 //Class for the spots in the grid
@@ -34,7 +35,7 @@ private:
 	/**
 	 * List of Creatures (pointers) on this spot
 	 */
-	std::vector<Creature const*> m_creatures;
+	std::vector<Creature*> m_creatures;
 
 public:
 	/**

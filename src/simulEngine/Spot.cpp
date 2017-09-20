@@ -7,11 +7,8 @@
 
 #include "Spot.h"
 
-Spot::Spot(const int x, const int y) {
-	m_x = x;
-	m_y = y;
+Spot::Spot(const int x, const int y): m_x(x), m_y(y) {
 	m_food = rand() % 100;
-	m_creatures = std::vector<Creature const*>();
 }
 
 const int Spot::getFood() const {
@@ -54,5 +51,5 @@ void Spot::removeCreature(const int id) {
 			return;
 		}
 	}
-	std::cout << "Trying to remove unexisting Creature from Spot" << ends;
+	std::cout << "Trying to remove unexisting Creature from Spot" << std::endl;
 }

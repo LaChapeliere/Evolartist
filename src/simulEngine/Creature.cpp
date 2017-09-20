@@ -6,12 +6,10 @@
  */
 
 #include "Creature.h"
+#include "World.h"
 
-Creature::Creature(const int id, const int x, const int y) {
+Creature::Creature(const int id, const int x, const int y): m_id(id), m_visionCap(3), m_moveCap(1) {
 	//Initialise attributes
-	m_id = id;
-	m_visionCap = 3;
-	m_moveCap = 1;
 	m_x = x;
 	m_y = y;
 	m_health = 100;
@@ -20,12 +18,24 @@ Creature::Creature(const int id, const int x, const int y) {
 	m_maxPercepCap = m_visionCap;
 }
 
-Creature::Creature(const int id) {
+Creature::Creature(const int id): m_id(id), m_visionCap(3), m_moveCap(1) {
 	//Generate random coordinates in world space
 	const int x = rand() % 1000;
 	const int y = rand() % 1000;
 
-	return Creature(id, x, y);
+	//Initialise attributes
+	m_x = x;
+	m_y = y;
+	m_health = 100;
+	m_hunger = 0;
+
+	m_maxPercepCap = m_visionCap;
+}
+
+Creature::Creature(const Creature& creature): m_id(creature.m_id), m_visionCap(creature.m_visionCap), m_moveCap(creature.m_moveCap), m_x(creature.m_x), m_y(creature.m_y), m_health(creature.m_health), m_hunger(creature.m_hunger), m_maxPercepCap(creature.m_maxPercepCap) {}
+
+Creature Creature::operator=(const Creature& creature) {
+	return Creature(creature);
 }
 
 const int Creature::getId() const {
@@ -69,13 +79,13 @@ void Creature::feed(const int food) {
 void Creature::perceiveLocalEnv(World const* world) {
 	// Initialise the local map to a square of side m_maxPercepCap*2+1
 	m_env.clear();
-	const int localEnvSize = m_maxPercepCap*2+1
-	m_env.assign((localEnvSize)**2,0);
+	const int localEnvSize = m_maxPercepCap*2+1;
+	m_env.assign(sqrt(localEnvSize),0);
 
 	//For each spot in local environment, get the Spot object to evaluate
-	const int worldSize = world->getSize()
-	for (int y = (m_y - m_maxPerceptionCap) % worldSize; y < (m_y + m_maxPerceptionCap) % worldSize; y++) {
-		for (int x = (m_x - m_maxPerceptionCap) % worldSize; x < (m_x + m_maxPerceptionCap) % worldSize; x++) {
+	const int worldSize = world->getSize();
+	for (int y = (m_y - m_maxPercepCap) % worldSize; y < (m_y + m_maxPercepCap) % worldSize; y++) {
+		for (int x = (m_x - m_maxPercepCap) % worldSize; x < (m_x + m_maxPercepCap) % worldSize; x++) {
 			Spot const* spot = world->getPointerToSpot(x, y);
 			// For now, compute score depending on the food available on the availability of other creatures on the spot
 			int score = spot->getFood() / 10;
