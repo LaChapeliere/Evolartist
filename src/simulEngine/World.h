@@ -128,6 +128,10 @@ public:
 	 */
 	void resolveTurn();
 
+	/**
+	 * Run one simulation step
+	 */
+	void runSimulationStep();
 };
 
 #endif

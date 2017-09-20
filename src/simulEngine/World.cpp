@@ -157,3 +157,11 @@ void World::resolveTurn() {
 	m_age++;
 	m_incubationTime++;
 }
+
+void World::runSimulationStep() {
+	evalEnvCreatures();
+	moveCreatures();
+	interactBtwCreatures();
+	interactCreaturesEnv();
+	resolveTurn();
+}
