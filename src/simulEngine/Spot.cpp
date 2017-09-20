@@ -47,6 +47,12 @@ void Spot::addCreature(Creature *const creaturePointer) {
 	m_creatures.push_back(creaturePointer);
 }
 
-void removeCreature(const int id) {
-	m_creatures.erase(m_creatures.begin() + id);
+void Spot::removeCreature(const int id) {
+	for (int c = 0; c < m_creatures.size(); c++) {
+		if (m_creatures[c]->getId() == id) {
+			m_creatures.erase(m_creatures.begin() + c);
+			return;
+		}
+	}
+	std::cout << "Trying to remove unexisting Creature from Spot" << ends;
 }

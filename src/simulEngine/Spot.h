@@ -84,7 +84,7 @@ public:
 
 	/**
 	 * Remove a specific creature from the spot
-	 * @param id Index of the creature to remove in m_creatures
+	 * @param id Identifier of the creature to remove from m_creatures
 	 */
 	void removeCreature(const int id);
 	

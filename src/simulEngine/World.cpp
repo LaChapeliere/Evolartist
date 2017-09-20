@@ -97,7 +97,20 @@ void World::evalEnvCreature() {
 	}
 }
 
+void World::moveCreatures() {
+	//For each Creature
+	for (int c = 0; i < m_creatures.size(); i++) {
+		//Perform move of Creature
+		const std::pair<int, int> oldCoord = m_creatures[i].getCoord();
+		const std::pair<int, int> newCoord = m_creatures[c].move();
 
+		//Update the grid
+		//Remove Creature from old Spot
+		m_grid[oldCoord.second * m_size + oldCoord.first].removeCreature(m_creatures[i].getId());
+		//Add Creature to new Spot
+		m_grid[newCoord.second * m_size + newCoord.first.addCreature(&m_creatures[i]);
+	}
+}
 
 
 
