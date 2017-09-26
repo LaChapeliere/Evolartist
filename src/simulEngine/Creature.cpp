@@ -60,6 +60,7 @@ const bool Creature::isAlive() const {
 
 void Creature::growHungry() {
 	m_hunger += 5;
+	m_hunger = fmax(m_hunger, 0);
 }
 
 void Creature::hungerImpactHealth() {
@@ -69,36 +70,64 @@ void Creature::hungerImpactHealth() {
 	}
 }
 
-void Creature::feed(const int food) {
+int Creature::feed(const int food) {
 	//Feeding power must be positive
 	if (food >= 0) {
-		m_hunger -= food;
+		int eating = fmin(food, m_hunger);
+		printDebug();
+		std::cout << "Feeding creature " << m_id << " quantity " << food << " for hunger " << m_hunger << std::endl; 
+		m_hunger -= eating;
+		std::cout << "After eating " << eating << " hunger is now " << m_hunger << std::endl;
+		return eating;
+	}
+	else {
+		return 0;
 	}
 }
 
 void Creature::perceiveLocalEnv(World const* world) {
+	std::cout << "eval env creature " << std::endl;
+	
 	// Initialise the local map to a square of side m_maxPercepCap*2+1
 	m_env.clear();
 	const int localEnvSize = m_maxPercepCap*2+1;
-	m_env.assign(sqrt(localEnvSize),0);
+	m_env.assign(pow(localEnvSize,2),0);
 
 	//For each spot in local environment, get the Spot object to evaluate
 	const int worldSize = world->getSize();
-	for (int y = (m_y - m_maxPercepCap) % worldSize; y < (m_y + m_maxPercepCap) % worldSize; y++) {
-		for (int x = (m_x - m_maxPercepCap) % worldSize; x < (m_x + m_maxPercepCap) % worldSize; x++) {
-			Spot const* spot = world->getPointerToSpot(x, y);
+	for (int y = 0; y < localEnvSize; y++) {
+		for (int x = 0; x < localEnvSize; x++) {
+			const int yWorld = (y + m_y - m_maxPercepCap + worldSize) % worldSize;
+			const int xWorld = (x + m_x - m_maxPercepCap + worldSize) % worldSize;
+			Spot const* spot = world->getPointerToSpot(xWorld, yWorld);
 			// For now, compute score depending on the food available on the availability of other creatures on the spot
-			int score = spot->getFood() / 10;
+			int score = round(spot->getFood() / 10.0);
 			if (spot->getNbCreatures() > 0) {
 				score += 5;
 			}
 
 			m_env[y * localEnvSize + x] = score;
+			//std::cout << "(" << xWorld << ", " << yWorld << ") to (" << x << ", " << y << ") -> " << score << std::endl;
 		}
 	}
+
+	printDebug();
 }
 
 const std::pair<int, int> Creature::move() {
 	//Dummy implementation, no move
+	std::cout << "move creature " << getId() << " from (" << getCoord().first << ", " << getCoord().second << ") to (" << getCoord().first << ", " << getCoord().second << ")" << std::endl;
 	return getCoord();
+}
+
+
+void Creature::printDebug() const {
+	std::cout << "Creature " << m_id << " at (" << m_x << ", " << m_y << ") has vision " << m_visionCap << " and movement " << m_moveCap << " and is " << m_health << "% healthy and " << m_hunger << "% hungry." << std::endl << "Its perceived environment is:" << std::endl;
+	const int side = sqrt(m_env.size());
+	for (int y=0; y < side; y++) {
+		for (int x=0; x < side; x++) {
+			std::cout << m_env[y * side + x] << " ";
+		}
+		std::cout << std::endl;
+	}
 }

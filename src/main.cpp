@@ -21,8 +21,11 @@ int main(){
     	cout << "Hello World!" << endl;
 
 	// Run the simulation. No insight on what's happening in the back box for now
-	World myWorld(100, 10);
-	
+	World myWorld(10, 3);
+	for (int t = 0; t < 3; t++) {
+		myWorld.runSimulationStep();
+	}
+
     	return 0;
 
 }
