@@ -29,15 +29,13 @@ void Spot::growFood() {
 
 void Spot::feedCreatures() {
 	const int nbCreatures = m_creatures.size();
-	std::cout << "Feeding " << nbCreatures << " at (" << m_x << ", " << m_y << ")" << std::endl;
 	if (nbCreatures > 0) {
 		int share = m_food / nbCreatures;
 		//Each Creature present on the spot gets an equal share of the food
 		for (int c = 0; c < nbCreatures; c++) {
-			std::cout << "Feeding Creature " << m_creatures[c]->getId() << std::endl;
-			int eaten = m_creatures[c]->feed(share);
+			m_creatures[c]->feed(share);
 			// The available vegetation is diminished from feeding
-			m_food -= eaten;
+			m_food -= share;
 		}
 	}
 }
