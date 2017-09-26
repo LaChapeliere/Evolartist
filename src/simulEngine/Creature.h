@@ -134,10 +134,10 @@ public:
 	void hungerImpactHealth();
 
 	/**
-	 * Feed creature
+	 * Feed creature to quell hunger
 	 * @param food The feeding power of the food
 	 */
-	void feed(const int food);
+	int feed(const int food);
 
 	/**
 	 * Build local perception map
@@ -150,6 +150,12 @@ public:
 	 * @return The pair of new horizontal and vertical coordinates
 	 */
 	const std::pair<int, int> move();
+
+	
+	/**
+	 * Debug print function
+	 */
+	void printDebug() const;
     	
 };
 

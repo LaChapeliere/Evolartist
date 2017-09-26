@@ -32,3 +32,9 @@
 *.out
 *.app
 
+# Xcode
+*.xcodeproj
+*.pbxproj
+*.xcworkspacedata
+*.xcuserstate
+*.plist
